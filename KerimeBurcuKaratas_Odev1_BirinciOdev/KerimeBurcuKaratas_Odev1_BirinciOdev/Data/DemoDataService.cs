@@ -1,24 +1,15 @@
 ﻿using KerimeBurcuKaratas_Odev1_BirinciOdev.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Data
 {
-    public static class DemoData
+    public class DemoDataService
     {
-        public static List<Book> GetAll()
+        private List<Book> books = new List<Book>();
+        public DemoDataService()
         {
-            return GetData();
-
-        }
-        public static Book GetById(int id)
-        {
-            return GetData().FirstOrDefault(x=> x.Id == id);
-
-        }
-        private static List<Book> GetData()
-        {
-            var books = new List<Book>();
             books.Add(new Book()
             {
                 Id = 1,
@@ -67,11 +58,65 @@ namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Data
                 BookGenre = "Drama",
                 BookAuthor = "Orhan Pamuk"
             });
-
-            return books;
         }
 
+        public List<Book> GetAll()
+        {
+            return books;
+
+        }
+        public Book GetById(int id)
+        {
+            return books.FirstOrDefault(x => x.Id == id);
+
+        }
+
+        public Book Add(Book book)
+        {
+            if (book == null)
+            {
+                throw new ArgumentNullException("Book is null.");
+
+            }
+            var bookId = books.Max(x => x.Id)+1;
+            book.Id = bookId;
+            books.Add(book);    
+            return book;
+        }
+
+        public bool UpDate(Book book)
+        {
+            if (book == null)
+            {
+                throw new ArgumentNullException("Book is null.");
+
+            }
+            var index = books.FindIndex(x => x.Id == book.Id);
+            if (index == -1)
+            {
+                return false;
+            }
+            books.RemoveAt(index);
+            books.Add(book);
+            return true;
+
+        }
+
+        public bool Delete(int id)
+        {
+            var x = books.RemoveAll(x => x.Id == id);
+            if (x > 1)
+            {
+                return true;
+
+            }
+            return false;
+
+
+        }
+
+
+
+
     }
-
 }
-
