@@ -49,5 +49,24 @@ namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult Update([FromBody] Book book)
+        {
+            var result = demoDataService.UpDate(book);
+            var message = result ? "Book updated." : "Book not update.";
+            return Ok(message);
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var result = demoDataService.Delete(id);
+            var message = result ? "Book deleted." : "Book not delete.";
+            return Ok(message);
+
+        }
+
     }
 }

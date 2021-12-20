@@ -62,7 +62,7 @@ namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Data
 
         public List<Book> GetAll()
         {
-            return books;
+            return books.OrderBy(x => x.Id).ToList();
 
         }
         public Book GetById(int id)
@@ -105,7 +105,7 @@ namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Data
         public bool Delete(int id)
         {
             var x = books.RemoveAll(x => x.Id == id);
-            if (x > 1)
+            if (x > 0)
             {
                 return true;
 
@@ -114,6 +114,8 @@ namespace KerimeBurcuKaratas_Odev1_BirinciOdev.Data
 
 
         }
+
+
 
 
 
